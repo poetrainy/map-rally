@@ -1,13 +1,22 @@
+import { useState } from "react";
 import { useParams } from "react-router";
+import { LuEllipsis } from "react-icons/lu";
 import { Center, Flex, Image, Separator, Text } from "@chakra-ui/react";
 import { Layout } from "@/layouts";
-import { getMap, getPost, getPosts, getUser } from "@/api/mock";
+import {
+  getMap,
+  getPost,
+  getPosts,
+  getUser,
+  MOCK_USER_SIGN_INNED,
+} from "@/api/mock";
 import { UserBanner } from "@/components/UserBanner";
 import { ThumbnailGrid } from "@/components/ThumbnailGrid";
 import { PREFECTURE_NAME_MAP } from "@/constants/map/prefectures";
 import { Header } from "@/components/Header";
+import { IconButton } from "@/components/IconButton";
+import { MenuBase } from "@/components/MenuBase";
 
-// FIXME: Place menu components
 const OPTION_ITEMS = ["リンクをコピー", "報告"];
 const OPTION_ITEMS_OWN = ["リンクをコピー", "編集", "削除"];
 
@@ -18,6 +27,7 @@ export function PostPage() {
   const otherPosts = getPosts(post?.mapId ?? "").filter(
     (item) => item.id != id
   );
+  const [open, setOpen] = useState(false);
 
   if (!(post && user)) {
     return (
@@ -29,8 +39,28 @@ export function PostPage() {
 
   return (
     <Layout hasNavigation={false} pt="14" gap="5">
-      <Header backLinkType="chevron">
-        {PREFECTURE_NAME_MAP[post.prefecture]}{" "}
+      <Header
+        backLinkType="chevron"
+        rightElement={
+          <MenuBase
+            items={
+              MOCK_USER_SIGN_INNED.id === user.id
+                ? OPTION_ITEMS_OWN
+                : OPTION_ITEMS
+            }
+            onOpenChange={(event) => setOpen(event.open)}
+          >
+            <IconButton
+              aria-label={open ? "メニューを閉じる" : "メニューを開く"}
+              pos="absolute"
+              right="4"
+            >
+              <LuEllipsis />
+            </IconButton>
+          </MenuBase>
+        }
+      >
+        {PREFECTURE_NAME_MAP[post.prefecture]}
       </Header>
       <Center w="calc(100% + 2rem)" mx="-4" aspectRatio="1">
         <Image src={post.images[0]} boxSize="full" objectFit="cover" />

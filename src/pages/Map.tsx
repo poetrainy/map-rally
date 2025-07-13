@@ -1,11 +1,11 @@
 import { Link, useParams } from "react-router";
 import { getMap, getPosts, getUser, MOCK_USER_SIGN_INNED } from "@/api/mock";
+import { Flex, GridItem } from "@chakra-ui/react";
+import { LuPlus } from "react-icons/lu";
 import { Layout } from "@/layouts";
 import { MapInformationBase } from "@/components/MapInformationBase";
 import { ThumbnailGrid } from "@/components/ThumbnailGrid";
 import { UserBanner } from "@/components/UserBanner";
-import { Flex, GridItem } from "@chakra-ui/react";
-import { LuPlus } from "react-icons/lu";
 
 export function MapPage() {
   const { id } = useParams();

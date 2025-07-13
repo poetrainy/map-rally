@@ -6,7 +6,6 @@ import {
   Center,
   Flex,
   Heading,
-  IconButton,
   Image,
   Text,
   VStack,
@@ -17,6 +16,8 @@ import type { User } from "@/types/user";
 import type { Map as MapType, Region } from "@/types/map";
 import { getPost, MOCK_USER_SIGN_INNED } from "@/api/mock";
 import { UserBanner } from "@/components/UserBanner";
+import { MenuBase } from "@/components/MenuBase";
+import { IconButton } from "@/components/IconButton";
 
 type CardVariant = "card-full" | "card-pin" | "page";
 
@@ -81,24 +82,6 @@ export const MapInformationBase: FC<MapInformationBaseProps> = ({
   const showCardData = SHOW_CARD_DATA_MAP[variant];
   const RegionComponent = REGION_IMAGE_MAP[map.region];
 
-  const toggleBookmark = () => {};
-
-  const optionItems = [
-    {
-      label: MOCK_USER_SIGN_INNED.likedMapIds.find((id) => id === map.id)
-        ? "ブックマークから削除"
-        : "ブックマークに追加",
-      Icon: LuBookmark,
-      onClick: () => toggleBookmark(),
-    },
-    {
-      // FIXME: Place menu components
-      label: open ? "メニューを閉じる" : "メニューを開く",
-      Icon: LuEllipsis,
-      onClick: () => setOpen(!open),
-    },
-  ];
-
   return (
     <Box>
       <Flex flexDir="column" alignItems="stretch" mb="2" p="0">
@@ -116,19 +99,29 @@ export const MapInformationBase: FC<MapInformationBaseProps> = ({
           </Heading>
           {showCardData.options && (
             <Flex gap="1">
-              {optionItems.map(({ label, Icon, onClick }) => (
+              <IconButton
+                aria-label={
+                  MOCK_USER_SIGN_INNED.likedMapIds.find((id) => id === map.id)
+                    ? "ブックマークから削除"
+                    : "ブックマークに追加"
+                }
+              >
+                <LuBookmark />
+              </IconButton>
+              <MenuBase
+                items={
+                  MOCK_USER_SIGN_INNED.id === map.userId
+                    ? OPTION_ITEMS_OWN
+                    : OPTION_ITEMS
+                }
+                onOpenChange={(event) => setOpen(event.open)}
+              >
                 <IconButton
-                  key={label}
-                  variant="ghost"
-                  colorPalette="gray"
-                  size="xs"
-                  aria-label={label}
-                  onClick={onClick}
-                  _icon={{ boxSize: 6 }}
+                  aria-label={open ? "メニューを閉じる" : "メニューを開く"}
                 >
-                  <Icon />
+                  <LuEllipsis />
                 </IconButton>
-              ))}
+              </MenuBase>
             </Flex>
           )}
         </Flex>

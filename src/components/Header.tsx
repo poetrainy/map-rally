@@ -1,15 +1,20 @@
 import type { FC, ReactNode } from "react";
 import { useNavigate } from "react-router";
 import { LuChevronLeft } from "react-icons/lu";
-import { Center, IconButton } from "@chakra-ui/react";
 import { IoClose } from "react-icons/io5";
+import { Center, IconButton } from "@chakra-ui/react";
 
 type Props = {
   children: ReactNode;
   backLinkType?: "chevron" | "close" | null;
+  rightElement?: ReactNode;
 };
 
-export const Header: FC<Props> = ({ children, backLinkType = null }) => {
+export const Header: FC<Props> = ({
+  children,
+  backLinkType = null,
+  rightElement,
+}) => {
   const navigate = useNavigate();
 
   return (
@@ -36,7 +41,8 @@ export const Header: FC<Props> = ({ children, backLinkType = null }) => {
         </IconButton>
       )}
       {children}
-      {backLinkType === "close" && (
+      {rightElement}
+      {!rightElement && backLinkType === "close" && (
         <IconButton
           variant="ghost"
           aria-label="前のページに戻る"
