@@ -51,13 +51,7 @@ const SHOW_CARD_DATA_MAP: Record<
 };
 
 const OPTION_ITEMS = ["リンクをコピー", "報告"];
-const OPTION_ITEMS_OWN = [
-  "トップにピンどめ",
-  "リンクをコピー",
-  "編集",
-  "アーカイブ",
-  "削除",
-];
+const OPTION_ITEMS_OWN = ["トップにピンどめ", "リンクをコピー", "編集", "削除"];
 
 export const REGION_IMAGE_MAP: Record<
   Region | "all",

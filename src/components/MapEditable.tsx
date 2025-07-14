@@ -1,5 +1,5 @@
 import { useEffect, useState, type ChangeEvent, type FC } from "react";
-import { LuChevronDown, LuPlus } from "react-icons/lu";
+import { LuPlus, LuRepeat } from "react-icons/lu";
 import { IoClose } from "react-icons/io5";
 import {
   Box,
@@ -9,14 +9,13 @@ import {
   Flex,
   Input,
   Portal,
-  Text,
-  VStack,
 } from "@chakra-ui/react";
 import type { MapEdit, MapVisibility, Region } from "@/types/map";
 import { REGION_IMAGE_MAP } from "@/components/MapInformationBase";
 import { MenuRadioItemBase } from "@/components/MenuRadioItemBase";
 import { TagSearch } from "@/components/TagSearch";
 import { Tag } from "@/components/Tag";
+import { REGION_JP_MAP, REGIONS } from "@/constants/map";
 
 type Props = {
   data?: {
@@ -29,28 +28,21 @@ type Props = {
   onChange?: (data: MapEdit) => void;
 };
 
-const VISIBILITY_LIST_ITEMS = [
-  {
-    value: "public",
-    label: "全体",
-  },
-  {
-    value: "unlisted",
-    label: "リンク限定",
-  },
-  {
-    value: "private",
-    label: "自分だけ",
-  },
+const regionItems = [
+  { value: "all", label: "全国" },
+  ...REGIONS.map((region) => ({
+    value: region,
+    label: REGION_JP_MAP[region],
+  })),
 ];
 
 export const MapEditable: FC<Props> = ({ data, onChange }) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [region, _setRegion] = useState<Region | "all">(data?.region ?? "all");
+  const [region, setRegion] = useState<Region | "all">(data?.region ?? "all");
   const [dialogTags, setDialogTags] = useState<string[]>([]);
   const [tags, setTags] = useState<string[]>(data?.tags ?? []);
-  const [visibility, setVisibility] = useState<MapVisibility>(
+  const [visibility, _setVisibility] = useState<MapVisibility>(
     data?.visibility ?? "public"
   );
 
@@ -62,7 +54,6 @@ export const MapEditable: FC<Props> = ({ data, onChange }) => {
     [name, description, region, tags, visibility]
   );
 
-  // FIXME: Region change button
   return (
     <Box flex="1">
       <Input
@@ -101,13 +92,39 @@ export const MapEditable: FC<Props> = ({ data, onChange }) => {
       />
       <Center
         w="full"
-        h="64"
-        mb="2"
+        h="72"
+        mb="1"
         _icon={{ boxSize: "full", objectFit: "contain" }}
       >
         <RegionComponent />
       </Center>
-      <Flex gap="2" justifyContent="flex-end" flexWrap="wrap" w="full" mb="6">
+      <Center mb="4">
+        <MenuRadioItemBase
+          value={region}
+          onValueChange={(event) => setRegion(event.value as Region | "all")}
+          radioItems={regionItems}
+          trigger={
+            <Button
+              variant="plain"
+              colorPalette="gray"
+              gap="1"
+              boxSize="fit"
+              color="gray.secondary"
+              py="0.5"
+              px="1"
+              fontSize="xs"
+              fontWeight="bold"
+              _icon={{
+                boxSize: 3,
+              }}
+            >
+              <LuRepeat />
+              マップを変更
+            </Button>
+          }
+        />
+      </Center>
+      <Flex gap="2" justifyContent="flex-end" flexWrap="wrap" w="full">
         <Dialog.Root
           size="xs"
           placement="center"
@@ -163,55 +180,6 @@ export const MapEditable: FC<Props> = ({ data, onChange }) => {
           </Tag>
         ))}
       </Flex>
-      <VStack gap="1" p="0">
-        <Text as="span" color="gray.secondary" fontSize="xs" fontWeight="bold">
-          公開範囲
-        </Text>
-        <MenuRadioItemBase
-          value={visibility}
-          onValueChange={(event) => setVisibility(event.value as MapVisibility)}
-          radioItems={VISIBILITY_LIST_ITEMS}
-          trigger={
-            <Button
-              variant="outline"
-              colorPalette="gray"
-              gap="1"
-              h="fit"
-              color="gray.fg"
-              bg="gray.contrast"
-              py="3"
-              rounded="lg"
-              _icon={{
-                boxSize: 4,
-              }}
-            >
-              <LuChevronDown />
-              {
-                VISIBILITY_LIST_ITEMS.find(({ value }) => value === visibility)
-                  ?.label
-              }
-            </Button>
-          }
-        />
-      </VStack>
-      {/* <ButtonGroup w="full">
-        <Button
-          variant="outline"
-          colorPalette="gray"
-          size="xl"
-          color="gray.secondary"
-          bg="gray.contrast"
-          fontWeight="bold"
-          rounded="full"
-          borderColor="gray.tertiary"
-          borderWidth="2px"
-        >
-          下書き保存
-        </Button>
-        <Button flex="1" size="xl" fontWeight="bold" rounded="full">
-          公開
-        </Button>
-      </ButtonGroup> */}
     </Box>
   );
 };

@@ -11,12 +11,14 @@ import {
 import { Header } from "@/components/Header";
 import { Layout } from "@/layouts";
 import Map from "@/components/MapImage";
-import type { MapEdit, Region } from "@/types/map";
+import type { MapEdit, MapVisibility, Region } from "@/types/map";
 import { MapEditable } from "@/components/MapEditable";
+import { MapVisibilityMenu } from "@/components/MapVisibilityMenu";
 
 export function NewMapPage() {
   const [name, setName] = useState("");
   const [region, setRegion] = useState<Region | "all" | null>("all");
+  const [_visibility, setVisibility] = useState<MapVisibility>("public");
 
   const updateData = (getData: MapEdit) => setName(getData.name);
 
@@ -102,13 +104,14 @@ export function NewMapPage() {
         gap="6"
         flex="1"
         h="full"
+        defaultStep={2}
       >
         <Steps.List>
           {stepperItems.map((_, i) => (
             <Steps.Item key={i} index={i}>
               <Steps.Indicator
                 css={{
-                  "&[data-current]": { bg: "transparent", color: "gray.fg" },
+                  "&[data-current]": { bg: "gray.contrast", color: "gray.fg" },
                 }}
               />
               <Steps.Separator />
@@ -155,19 +158,9 @@ export function NewMapPage() {
                 </Steps.NextTrigger>
               ) : (
                 <ButtonGroup w="full">
-                  <Button
-                    variant="outline"
-                    colorPalette="gray"
-                    size="xl"
-                    color="gray.secondary"
-                    bg="gray.contrast"
-                    fontWeight="bold"
-                    rounded="full"
-                    borderColor="gray.tertiary"
-                    borderWidth="2px"
-                  >
-                    下書き保存
-                  </Button>
+                  <MapVisibilityMenu
+                    onChange={(value) => setVisibility(value)}
+                  />
                   <Steps.NextTrigger asChild>
                     <Button flex="1" size="xl" fontWeight="bold" rounded="full">
                       公開
