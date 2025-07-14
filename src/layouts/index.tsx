@@ -14,7 +14,7 @@ export function Layout({
         display="flex"
         flexDir="column"
         w="100dvw"
-        maxW="40rem"
+        maxW="34rem"
         mx="auto"
         pt="6"
         px="4"

@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { Header } from "@/components/Header";
 import { Layout } from "@/layouts";
-import Map from "@/components/MapImage";
+import { MapSelect } from "@/components/MapImage";
 import type { MapEdit, MapVisibility, Region } from "@/types/map";
 import { MapEditable } from "@/components/MapEditable";
 import { MapVisibilityMenu } from "@/components/MapVisibilityMenu";
@@ -19,7 +19,7 @@ import IMAGE_CONFETTI from "@/assets/images/confetti.png";
 
 export function NewMapPage() {
   const [name, setName] = useState("");
-  const [region, _setRegion] = useState<Region>();
+  const [region, setRegion] = useState<Region>();
   const [_visibility, setVisibility] = useState<MapVisibility>("public");
 
   const updateData = (getData: MapEdit) => setName(getData.name);
@@ -56,16 +56,10 @@ export function NewMapPage() {
       nextTriggerDisabled: !name.length,
     },
     {
-      // FIXME: Button
       title: "マップの地域をえらぶ",
       content: (
-        <Center
-          w="full"
-          h="25rem"
-          mb="2"
-          _icon={{ boxSize: "full", objectFit: "contain" }}
-        >
-          <Map.All />
+        <Center flex="1">
+          <MapSelect onValueChange={(value) => setRegion(value)} />
         </Center>
       ),
       nextTriggerDisabled: !region,
@@ -75,7 +69,7 @@ export function NewMapPage() {
       description: "あとから変更できます",
       content: (
         <MapEditable
-          data={{ name, ...(!!region && { region }) }}
+          data={{ name, region: region ?? "hokkaido-tohoku" }}
           onChange={updateData}
         />
       ),
@@ -92,6 +86,7 @@ export function NewMapPage() {
         gap="6"
         flex="1"
         h="full"
+        defaultStep={1}
       >
         <Steps.List>
           {stepperItems.map((_, i) => (

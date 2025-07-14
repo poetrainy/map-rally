@@ -90,6 +90,11 @@ export const REGION_JP_MAP: Record<Region, string> = {
   "kyushu-okinawa": "九州・沖縄県",
 };
 
+export const REGION_JP_ITEMS = REGIONS.map((region) => ({
+  value: region,
+  label: REGION_JP_MAP[region],
+}));
+
 export const PREFECTURES = {
   "hokkaido-tohoku": REGION_HOKKAIDO_TOHOKU_PREFECTURES,
   kanto: REGION_KANTO_PREFECTURES,

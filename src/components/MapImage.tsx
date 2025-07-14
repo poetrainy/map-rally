@@ -1,9 +1,7 @@
-// FIXME: Rename
-
-import type { FC, ReactNode } from "react";
-import { chakra } from "@chakra-ui/react";
+import { useState, type FC, type ReactNode } from "react";
+import { Center, chakra, type CenterProps } from "@chakra-ui/react";
 import type { Level, MapColorToken, Region } from "@/types/map";
-import { plainColor } from "@/constants/map";
+import { plainColor, REGION_JP_MAP } from "@/constants/map";
 import {
   ALL_REGION_PATH_MAP,
   INDIVIDUAL_REGION_PATH_MAP,
@@ -117,36 +115,98 @@ const KyushuOkinawa: FC<{ levelMap?: LevelMap }> = ({ levelMap }) => (
   </chakra.svg>
 );
 
-const All: FC = ({ variant = "all" }: { variant?: "all" | null | Region }) => {
+const mapSelectButtonStyleInsetMap: Record<Region, string> = {
+  "hokkaido-tohoku": "45% 10% auto auto",
+  kanto: "64% 24% auto auto",
+  chubu: "67% 40% auto auto",
+  kinki: "auto auto 20% 33%",
+  chugoku: "auto auto 22% 14%",
+  shikoku: "auto auto 13% 20%",
+  "kyushu-okinawa": "auto auto 5% 0",
+};
+
+const mapSelectPathItems: {
+  region: Region;
+  d: string[];
+  label: string;
+  inset: string;
+}[] = Object.entries(ALL_REGION_PATH_MAP).map(([region, d]) => {
+  const typedRegion = region as Region;
+
+  return {
+    region: typedRegion,
+    d,
+    label: REGION_JP_MAP[typedRegion],
+    inset: mapSelectButtonStyleInsetMap[typedRegion],
+  };
+});
+
+export const MapSelect: FC<
+  CenterProps & {
+    onValueChange: (region: Region) => void;
+  }
+> = ({ onValueChange, ...props }) => {
+  const [value, setValue] = useState<Region>();
+
   return (
-    <chakra.svg viewBox="0 0 363 417">
-      {Object.entries(ALL_REGION_PATH_MAP).map(([region, d]) => (
-        <RegionMapBase
-          key={region}
-          prefectures={d.map((item) => ({
-            id: region,
-            d: item,
-            fill: fill(
-              region as Region,
-              variant === "all" || variant === region ? "default" : "plain"
-            ),
-          }))}
+    <Center
+      w="full"
+      aspectRatio="5/6"
+      pos="relative"
+      _icon={{ boxSize: "full", objectFit: "contain" }}
+      {...props}
+    >
+      <chakra.svg viewBox="0 0 363 417">
+        {mapSelectPathItems.map(({ region, d }) => (
+          <RegionMapBase
+            key={region}
+            prefectures={d.map((item) => ({
+              id: region,
+              d: item,
+              fill: fill(
+                region as Region,
+                !value || value === region ? "default" : "plain"
+              ),
+            }))}
+          >
+            {region === "kyushu-okinawa" && (
+              <chakra.path
+                d="M351.513 335.958H297.956L266.099 370.1V406.088"
+                fill="transparent"
+                stroke={plainColor}
+              />
+            )}
+          </RegionMapBase>
+        ))}
+      </chakra.svg>
+      {mapSelectPathItems.map(({ region, label, inset }) => (
+        <Center
+          key={label}
+          w="fit"
+          h="7"
+          color="gray.fg"
+          bg="white"
+          borderColor="gray.muted"
+          borderWidth="1px"
+          borderStyle="solid"
+          px="3"
+          fontWeight="bold"
+          rounded="full"
+          pos="absolute"
+          inset={inset}
+          onClick={() => {
+            setValue(region);
+            onValueChange?.(region);
+          }}
         >
-          {region === "kyushu-okinawa" && (
-            <chakra.path
-              d="M351.513 335.958H297.956L266.099 370.1V406.088"
-              fill="transparent"
-              stroke={plainColor}
-            />
-          )}
-        </RegionMapBase>
+          {label}
+        </Center>
       ))}
-    </chakra.svg>
+    </Center>
   );
 };
 
 export default {
-  All,
   HokkaidoTohoku,
   Kanto,
   Chubu,

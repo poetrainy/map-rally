@@ -15,44 +15,39 @@ import { REGION_IMAGE_MAP } from "@/components/MapInformationBase";
 import { MenuRadioItemBase } from "@/components/MenuRadioItemBase";
 import { TagSearch } from "@/components/TagSearch";
 import { Tag } from "@/components/Tag";
-import { REGION_JP_MAP, REGIONS } from "@/constants/map";
+import { REGION_JP_ITEMS } from "@/constants/map";
 
 type Props = {
   data?: {
-    name?: string;
+    name: string;
     description?: string;
-    region?: Region;
+    region: Region;
     tags?: string[];
     visibility?: MapVisibility;
   };
   onChange?: (data: MapEdit) => void;
 };
 
-const regionItems = [
-  { value: "all", label: "全国" },
-  ...REGIONS.map((region) => ({
-    value: region,
-    label: REGION_JP_MAP[region],
-  })),
-];
-
 export const MapEditable: FC<Props> = ({ data, onChange }) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [region, setRegion] = useState<Region>("hokkaido-tohoku");
+  const [region, setRegion] = useState<Region>();
   const [dialogTags, setDialogTags] = useState<string[]>([]);
   const [tags, setTags] = useState<string[]>(data?.tags ?? []);
   const [visibility, _setVisibility] = useState<MapVisibility>(
     data?.visibility ?? "public"
   );
 
-  const RegionComponent = REGION_IMAGE_MAP[region];
+  const RegionComponent =
+    REGION_IMAGE_MAP[region ?? data?.region ?? "hokkaido-tohoku"];
 
-  useEffect(
-    () =>
-      onChange?.({ name: name ?? "", description, region, tags, visibility }),
-    [name, description, region, tags, visibility]
-  );
+  useEffect(() => {
+    if (!region) {
+      return;
+    }
+
+    onChange?.({ name: name ?? "", description, region, tags, visibility });
+  }, [name, description, region, tags, visibility]);
 
   return (
     <Box flex="1">
@@ -102,7 +97,7 @@ export const MapEditable: FC<Props> = ({ data, onChange }) => {
         <MenuRadioItemBase
           value={region ?? data?.region}
           onValueChange={(event) => setRegion(event.value as Region)}
-          radioItems={regionItems}
+          radioItems={REGION_JP_ITEMS}
           trigger={
             <Button
               variant="plain"

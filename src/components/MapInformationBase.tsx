@@ -53,10 +53,7 @@ const SHOW_CARD_DATA_MAP: Record<
 const OPTION_ITEMS = ["リンクをコピー", "報告"];
 const OPTION_ITEMS_OWN = ["トップにピンどめ", "リンクをコピー", "編集", "削除"];
 
-export const REGION_IMAGE_MAP: Record<Region, FC<{ levelMap?: LevelMap }>> & {
-  all: FC;
-} = {
-  all: Map.All,
+export const REGION_IMAGE_MAP: Record<Region, FC<{ levelMap?: LevelMap }>> = {
   "hokkaido-tohoku": Map.HokkaidoTohoku,
   kanto: Map.Kanto,
   chubu: Map.Chubu,

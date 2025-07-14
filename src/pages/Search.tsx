@@ -17,7 +17,7 @@ import { MOCK_MAPS, MOCK_USERS } from "@/api/mock";
 import { CardLarge } from "@/components/Card/Large";
 import { Layout } from "@/layouts";
 import type { Region } from "@/types/map";
-import { REGION_JP_MAP, REGIONS } from "@/constants/map";
+import { REGION_JP_MAP, REGION_JP_ITEMS } from "@/constants/map";
 import { TagSearch } from "@/components/TagSearch";
 
 const FILLED_PERCENTAGE_ITEMS: {
@@ -42,11 +42,6 @@ const filledPercentageValues = FILLED_PERCENTAGE_ITEMS.map(
   ({ value }) => value
 );
 type FilledPercentageValue = (typeof filledPercentageValues)[number];
-
-const regionItems = REGIONS.map((region) => ({
-  value: region,
-  label: REGION_JP_MAP[region],
-}));
 
 const SectionHeading: FC<{ children: ReactNode }> = ({ children }) => (
   <Heading as="h3" color="gray.secondary" fontSize="xs" fontWeight="bold">
@@ -143,7 +138,7 @@ export function SearchPage() {
                 <VStack alignItems="stretch" p="0">
                   <SectionHeading>マップの地域</SectionHeading>
                   <Flex flexWrap="wrap" gap="0.75rem 2rem">
-                    {regionItems.map(({ value, label }) => (
+                    {REGION_JP_ITEMS.map(({ value, label }) => (
                       <Checkbox.Root
                         key={value}
                         name="region"
