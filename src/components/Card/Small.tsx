@@ -1,7 +1,7 @@
 import type { FC } from "react";
 import { Card, Center, LinkOverlay, Text } from "@chakra-ui/react";
 import type { Map } from "@/types/map";
-import { levelMap } from "@/libraries/map";
+import { createLevelMap } from "@/libraries/map";
 import { REGION_IMAGE_MAP } from "@/components/MapInformationBase";
 import { Link } from "react-router";
 import type { CardProps } from "@/components/Card/Large";
@@ -27,7 +27,7 @@ export const CardSmall: FC<Props> = ({ map, from = "search" }) => {
         p="0"
       >
         <Center w="full" h="32" bg="gray.muted" p="1" rounded="lg">
-          <RegionComponent levelMap={levelMap(map)} />
+          <RegionComponent levelMap={createLevelMap(map)} />
         </Center>
         <Text as="span" color="gray.fg" fontWeight="bold">
           {map.name}

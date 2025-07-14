@@ -2,12 +2,11 @@ import { getPost } from "@/api/mock";
 import { PREFECTURES } from "@/constants/map";
 import type { Level, Map, Prefecture, Region } from "@/types/map";
 
-export const levelMap: (map: Map) => Record<Prefecture<Region>, Level> = (
+export const createLevelMap: (map: Map) => Record<Prefecture<Region>, Level> = (
   map: Map
 ) => {
   const region = map.region;
   const prefectureMap = Object.fromEntries(
-    // FIXME: Type error
     PREFECTURES[region].map((prefecture: Prefecture<typeof region>) => {
       const postLength = map.posts.filter(
         (post) => getPost(post)?.prefecture === prefecture

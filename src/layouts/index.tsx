@@ -1,14 +1,12 @@
 import type { ReactNode } from "react";
 import { Box, type BoxProps } from "@chakra-ui/react";
-import { Navigation, type NavigationProps } from "@/components/Navigation";
+import { Navigation } from "@/components/Navigation";
 
 export function Layout({
   children,
   hasNavigation = true,
-  overrideStyle,
   ...props
-}: { children: ReactNode; hasNavigation?: boolean } & NavigationProps &
-  BoxProps) {
+}: { children: ReactNode; hasNavigation?: boolean } & BoxProps) {
   return (
     <>
       <Box
@@ -25,7 +23,7 @@ export function Layout({
       >
         {children}
       </Box>
-      {hasNavigation && <Navigation overrideStyle={overrideStyle} />}
+      {hasNavigation && <Navigation />}
     </>
   );
 }

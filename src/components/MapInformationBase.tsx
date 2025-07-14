@@ -11,7 +11,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import Map, { type LevelMap } from "@/components/MapImage";
-import { levelMap } from "@/libraries/map";
+import { createLevelMap } from "@/libraries/map";
 import type { User } from "@/types/user";
 import type { Map as MapType, Region } from "@/types/map";
 import { getPost, MOCK_USER_SIGN_INNED } from "@/api/mock";
@@ -53,10 +53,9 @@ const SHOW_CARD_DATA_MAP: Record<
 const OPTION_ITEMS = ["リンクをコピー", "報告"];
 const OPTION_ITEMS_OWN = ["トップにピンどめ", "リンクをコピー", "編集", "削除"];
 
-export const REGION_IMAGE_MAP: Record<
-  Region | "all",
-  FC<{ levelMap?: LevelMap }>
-> = {
+export const REGION_IMAGE_MAP: Record<Region, FC<{ levelMap?: LevelMap }>> & {
+  all: FC;
+} = {
   all: Map.All,
   "hokkaido-tohoku": Map.HokkaidoTohoku,
   kanto: Map.Kanto,
@@ -122,7 +121,7 @@ export const MapInformationBase: FC<MapInformationBaseProps> = ({
       </Flex>
       <Flex alignItems="center" w="full" p="0">
         <Center w="full" h="64">
-          <RegionComponent levelMap={levelMap(map)} />
+          <RegionComponent levelMap={createLevelMap(map)} />
         </Center>
         {showCardData.thumbnails && (
           <VStack gap="1" w="20" p="0" flex="none">

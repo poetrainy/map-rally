@@ -4,7 +4,6 @@ import {
   Button,
   ButtonGroup,
   Center,
-  Checkbox,
   Flex,
   Input,
   Image,
@@ -20,7 +19,7 @@ import IMAGE_CONFETTI from "@/assets/images/confetti.png";
 
 export function NewMapPage() {
   const [name, setName] = useState("");
-  const [region, setRegion] = useState<Region | "all" | null>("all");
+  const [region, _setRegion] = useState<Region>();
   const [_visibility, setVisibility] = useState<MapVisibility>("public");
 
   const updateData = (getData: MapEdit) => setName(getData.name);
@@ -57,30 +56,16 @@ export function NewMapPage() {
       nextTriggerDisabled: !name.length,
     },
     {
+      // FIXME: Button
       title: "マップの地域をえらぶ",
       content: (
-        <Center flexDir="column" alignItems="center" gap="2" flex="1">
-          <Center
-            w="full"
-            h="25rem"
-            mb="2"
-            _icon={{ boxSize: "full", objectFit: "contain" }}
-          >
-            <Map.All />
-          </Center>
-          <Checkbox.Root
-            name="region"
-            value="all"
-            checked={region === "all"}
-            gap="2"
-            onCheckedChange={() =>
-              setRegion((p) => (p === "all" ? null : "all"))
-            }
-          >
-            <Checkbox.HiddenInput />
-            <Checkbox.Control />
-            <Checkbox.Label>全国</Checkbox.Label>
-          </Checkbox.Root>
+        <Center
+          w="full"
+          h="25rem"
+          mb="2"
+          _icon={{ boxSize: "full", objectFit: "contain" }}
+        >
+          <Map.All />
         </Center>
       ),
       nextTriggerDisabled: !region,

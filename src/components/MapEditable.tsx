@@ -21,7 +21,7 @@ type Props = {
   data?: {
     name?: string;
     description?: string;
-    region?: Region | "all";
+    region?: Region;
     tags?: string[];
     visibility?: MapVisibility;
   };
@@ -39,7 +39,7 @@ const regionItems = [
 export const MapEditable: FC<Props> = ({ data, onChange }) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [region, setRegion] = useState<Region | "all">(data?.region ?? "all");
+  const [region, setRegion] = useState<Region>("hokkaido-tohoku");
   const [dialogTags, setDialogTags] = useState<string[]>([]);
   const [tags, setTags] = useState<string[]>(data?.tags ?? []);
   const [visibility, _setVisibility] = useState<MapVisibility>(
@@ -100,8 +100,8 @@ export const MapEditable: FC<Props> = ({ data, onChange }) => {
       </Center>
       <Center mb="4">
         <MenuRadioItemBase
-          value={region}
-          onValueChange={(event) => setRegion(event.value as Region | "all")}
+          value={region ?? data?.region}
+          onValueChange={(event) => setRegion(event.value as Region)}
           radioItems={regionItems}
           trigger={
             <Button

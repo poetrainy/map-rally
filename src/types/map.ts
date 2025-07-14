@@ -25,7 +25,7 @@ export type MapVisibility = "public" | "unlisted" | "private";
 export type MapEdit = {
   name: string;
   description?: string;
-  region: Region | "all";
+  region: Region;
   tags: string[];
   visibility: MapVisibility;
 };
