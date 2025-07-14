@@ -92,7 +92,6 @@ export function NewMapPage() {
         gap="6"
         flex="1"
         h="full"
-        defaultStep={2}
       >
         <Steps.List>
           {stepperItems.map((_, i) => (
