@@ -46,6 +46,7 @@ export function HomePage() {
               user={MOCK_USER_SIGN_INNED}
               map={map}
               variant="card-pin"
+              from="home"
             />
           ))}
         </Flex>
@@ -53,7 +54,7 @@ export function HomePage() {
       <Grid templateColumns="repeat(2, 1fr)" gap="2">
         {MOCK_MAPS_USER_SIGN_INNED.filter(({ isPin }) => !isPin).map((map) => (
           <GridItem key={map.id}>
-            <CardSmall map={map} />
+            <CardSmall map={map} from="home" />
           </GridItem>
         ))}
       </Grid>

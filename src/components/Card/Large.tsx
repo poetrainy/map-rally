@@ -6,11 +6,17 @@ import {
 } from "@/components/MapInformationBase";
 import { Link } from "react-router";
 
-export const CardLarge: FC<MapInformationBaseProps> = (props) => {
+export type CardProps = {
+  from?: "home" | "search";
+};
+
+type Props = MapInformationBaseProps & CardProps;
+
+export const CardLarge: FC<Props> = ({ from = "search", ...props }) => {
   return (
     <Card.Root bg="transparent" border="none">
       <LinkOverlay asChild>
-        <Link to={`/maps/${props.map.id}`} />
+        <Link to={`/maps/${props.map.id}?from=${from}`} />
       </LinkOverlay>
       <Card.Body p="0">
         <MapInformationBase {...props} />

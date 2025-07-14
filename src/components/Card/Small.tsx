@@ -4,18 +4,19 @@ import type { Map } from "@/types/map";
 import { levelMap } from "@/libraries/map";
 import { REGION_IMAGE_MAP } from "@/components/MapInformationBase";
 import { Link } from "react-router";
+import type { CardProps } from "@/components/Card/Large";
 
-type Props = {
+type Props = CardProps & {
   map: Map;
 };
 
-export const CardSmall: FC<Props> = ({ map }) => {
+export const CardSmall: FC<Props> = ({ map, from = "search" }) => {
   const RegionComponent = REGION_IMAGE_MAP[map.region];
 
   return (
     <Card.Root bg="transparent" border="none">
       <LinkOverlay asChild>
-        <Link to={`/maps/${map.id}`} />
+        <Link to={`/maps/${map.id}?from=${from}`} />
       </LinkOverlay>
       <Card.Body
         display="flex"
