@@ -10,6 +10,7 @@ import {
   IconButton,
   Portal,
   RadioGroup,
+  Text,
   VStack,
 } from "@chakra-ui/react";
 import { MOCK_MAPS, MOCK_USERS } from "@/api/mock";
@@ -54,14 +55,17 @@ const SectionHeading: FC<{ children: ReactNode }> = ({ children }) => (
 );
 
 export function SearchPage() {
-  const [tags, setTags] = useState<string[]>([]); // FIXME: Reflect the received array
-  const [regions, setRegions] = useState<(Region | "all" | null)[]>([]);
+  const [tags, setTags] = useState<string[]>([]);
+  const [regions, setRegions] = useState<Region[]>([]);
   const [filledPercentage, setFilledPercentage] =
     useState<FilledPercentageValue>("none");
   const overrideSearchLabel = [
-    !!tags.length ? tags : [],
-    !!regions.length ? regions : [],
-    filledPercentage != "none" ? filledPercentage : [],
+    !!tags.length ? tags.map((tag) => `#${tag}`) : [],
+    !!regions.length ? regions.map((region) => REGION_JP_MAP[region]) : [],
+    filledPercentage != "none"
+      ? FILLED_PERCENTAGE_ITEMS.find(({ value }) => value === filledPercentage)
+          ?.label
+      : [],
   ]
     .flat()
     .join(", ");
@@ -74,18 +78,36 @@ export function SearchPage() {
             size="xl"
             variant="outline"
             justifyContent="left"
-            color="gray.focusRing"
             bg="gray.contrast"
             pl="3"
             pr="3"
             fontSize="md"
             fontWeight="normal"
             rounded="lg"
+            css={{
+              ...(!!overrideSearchLabel.length
+                ? {
+                    color: "gray.fg",
+                  }
+                : { color: "gray.focusRing" }),
+            }}
+            _icon={{
+              color: "gray.focusRing",
+            }}
           >
             <LuSearch />
-            {!!overrideSearchLabel.length
-              ? overrideSearchLabel
-              : "マップを検索"}
+            <Text
+              as="span"
+              w="full"
+              overflow="hidden"
+              whiteSpace="nowrap"
+              textOverflow="ellipsis"
+              textAlign="left"
+            >
+              {!!overrideSearchLabel.length
+                ? overrideSearchLabel
+                : "マップを検索"}
+            </Text>
           </Button>
         </Drawer.Trigger>
         <Portal>
@@ -116,7 +138,7 @@ export function SearchPage() {
               <Drawer.Body display="flex" flexDir="column" gap="8" p="0">
                 <VStack alignItems="stretch" p="0">
                   <SectionHeading>タグ</SectionHeading>
-                  <TagSearch />
+                  <TagSearch onChange={(tags) => setTags(tags)} />
                 </VStack>
                 <VStack alignItems="stretch" p="0">
                   <SectionHeading>マップの地域</SectionHeading>
@@ -127,7 +149,7 @@ export function SearchPage() {
                         name="region"
                         colorPalette="teal"
                         value={value}
-                        checked={!!regions.find((item) => item === value)}
+                        checked={regions.includes(value)}
                         onCheckedChange={() =>
                           setRegions((p) =>
                             p.find((item) => item === value)

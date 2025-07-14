@@ -17,7 +17,7 @@ export const Tag: FC<CenterProps & { variant?: "icon" | "text" }> = ({
     fontWeight="bold"
     _icon={{ boxSize: 4, color: "gray.tertiary" }}
     css={{
-      ...(variant === "icon" ? { w: 7, p: 0 } : { pl: 3, pr: 4 }),
+      ...(variant === "icon" ? { w: 7, p: 0 } : { w: "fit", pl: 3, pr: 4 }),
     }}
     {...props}
   />

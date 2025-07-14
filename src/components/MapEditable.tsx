@@ -48,6 +48,7 @@ export const MapEditable: FC<Props> = ({ data, onChange }) => {
   const [name, setName] = useState(data?.name);
   const [description, setDescription] = useState(data?.description);
   const [region, _setRegion] = useState<Region | "all">(data?.region ?? "all");
+  const [dialogTags, setDialogTags] = useState<string[]>([]);
   const [tags, setTags] = useState<string[]>(data?.tags ?? []);
   const [visibility, setVisibility] = useState<MapVisibility>(
     data?.visibility ?? "public"
@@ -68,7 +69,7 @@ export const MapEditable: FC<Props> = ({ data, onChange }) => {
         name="name"
         value={name}
         variant="flushed"
-        placeholder="マップの名前を入力"
+        placeholder="名前を入力"
         color="gray.fg"
         fontWeight="bold"
         fontSize="2xl"
@@ -85,7 +86,7 @@ export const MapEditable: FC<Props> = ({ data, onChange }) => {
         name="description"
         value={description}
         variant="flushed"
-        placeholder="マップの説明を入力"
+        placeholder="説明を入力"
         size="xs"
         w="full"
         color="gray.fg"
@@ -107,7 +108,13 @@ export const MapEditable: FC<Props> = ({ data, onChange }) => {
         <RegionComponent />
       </Center>
       <Flex gap="2" justifyContent="flex-end" flexWrap="wrap" w="full" mb="6">
-        <Dialog.Root size="xs" placement="center">
+        <Dialog.Root
+          size="xs"
+          placement="center"
+          onOpenChange={(event) =>
+            !event.open && setTags((p) => [...new Set([...p, ...dialogTags])])
+          }
+        >
           <Dialog.Trigger asChild>
             <Tag
               {...(!!tags.length
@@ -122,31 +129,25 @@ export const MapEditable: FC<Props> = ({ data, onChange }) => {
           <Portal>
             <Dialog.Positioner>
               <Dialog.Content
-                gap="4"
+                gap="3"
                 maxW="90vw"
                 py="6"
                 px="4"
                 rounded="2xl"
                 boxShadow="none"
               >
-                <Dialog.CloseTrigger />
-                <Dialog.Header flexDir="column" p="0">
+                <Dialog.Header flexDir="column" gap="1" p="0">
                   <Dialog.Title>タグを追加</Dialog.Title>
-                  <Dialog.Description>
-                    タグは5件まで追加できます
-                  </Dialog.Description>
                 </Dialog.Header>
                 <Dialog.Body p="0">
-                  <TagSearch
-                    onChange={(event) =>
-                      setTags((p) => [...p, event.target.value])
-                    }
-                  />
+                  <TagSearch onChange={(tags) => setDialogTags(tags)} />
                 </Dialog.Body>
                 <Dialog.Footer p="0">
-                  <Button colorPalette="teal" h="10" px="5">
-                    保存
-                  </Button>
+                  <Dialog.CloseTrigger pos="relative" inset="auto">
+                    <Button colorPalette="teal" h="10" px="5">
+                      保存
+                    </Button>
+                  </Dialog.CloseTrigger>
                 </Dialog.Footer>
               </Dialog.Content>
             </Dialog.Positioner>
