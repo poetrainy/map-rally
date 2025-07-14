@@ -84,7 +84,7 @@ export function PostPage() {
           )}
         </Flex>
         {post.text && (
-          <Text color="gray.fg" fontSize="xs">
+          <Text color="gray.fg" mb="2">
             {post.text}
           </Text>
         )}

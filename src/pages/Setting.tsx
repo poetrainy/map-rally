@@ -38,7 +38,7 @@ export function Setting() {
       <Flex justifyContent="space-between" alignItems="center">
         <Flex alignItems="center" gap="3">
           <UserIcon user={MOCK_USER_SIGN_INNED} boxSize="16" />
-          <VStack alignItems="flex-start" gap="0.5" p="0">
+          <VStack alignItems="flex-start" gap="0" p="0">
             <Text as="span" fontSize="xl" fontWeight="bold">
               {MOCK_USER_SIGN_INNED.name}
             </Text>
@@ -66,7 +66,13 @@ export function Setting() {
       </Flex>
       <Flex as="ul" gap="3">
         {BUTTON_ITEMS.map(({ label, path, Icon }) => (
-          <Flex asChild flexDir="column" alignItems="center" gap="1">
+          <Flex
+            key={path + label}
+            asChild
+            flexDir="column"
+            alignItems="center"
+            gap="1"
+          >
             <Link to={path}>
               <Center
                 boxSize="20"
@@ -90,11 +96,12 @@ export function Setting() {
       <VStack as="ul" gap="0">
         {SETTING_ITEMS.map(({ label, path }) => (
           <Text
+            key={label}
             asChild
             display="inline-flex"
             alignItems="center"
             w="full"
-            h="16"
+            h="14"
             color="gray.fg"
             css={{
               "&:not(:last-child)": {
