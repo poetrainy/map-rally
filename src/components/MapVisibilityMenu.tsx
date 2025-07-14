@@ -30,15 +30,17 @@ export const MapVisibilityMenu: FC<Props> = ({
 }) => {
   const [value, setValue] = useState<MapVisibility>(defaultValue);
 
+  const handleOnValueChange = (event: { value: string }) => {
+    const typedValue = event.value as MapVisibility;
+
+    setValue(typedValue);
+    onChange(typedValue);
+  };
+
   return (
     <MenuRadioItemBase
       value={value ?? defaultValue}
-      onValueChange={(event) => {
-        const typedValue = event.value as MapVisibility;
-
-        setValue(typedValue);
-        onChange(typedValue);
-      }}
+      onValueChange={handleOnValueChange}
       radioItems={VISIBILITY_LIST_ITEMS}
       trigger={
         <Button
