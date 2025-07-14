@@ -83,7 +83,7 @@ export function NewMapPage() {
       nextTriggerDisabled: !region,
     },
     {
-      title: "マップに情報を追加する", // FIXME: Rename the label
+      title: "マップの情報を追加する",
       description: "あとから変更できます",
       content: (
         <MapEditable
