@@ -1,4 +1,5 @@
 import { useState, type ChangeEvent, type ReactNode } from "react";
+import { Link } from "react-router";
 import {
   Button,
   ButtonGroup,
@@ -6,6 +7,7 @@ import {
   Checkbox,
   Flex,
   Input,
+  Image,
   Steps,
 } from "@chakra-ui/react";
 import { Header } from "@/components/Header";
@@ -14,6 +16,7 @@ import Map from "@/components/MapImage";
 import type { MapEdit, MapVisibility, Region } from "@/types/map";
 import { MapEditable } from "@/components/MapEditable";
 import { MapVisibilityMenu } from "@/components/MapVisibilityMenu";
+import IMAGE_CONFETTI from "@/assets/images/confetti.png";
 
 export function NewMapPage() {
   const [name, setName] = useState("");
@@ -171,10 +174,35 @@ export function NewMapPage() {
             </Steps.Content>
           )
         )}
+        <Steps.CompletedContent
+          flex="1"
+          display="flex"
+          flexDir="column"
+          justifyContent="center"
+          alignItems="center"
+        >
+          <Center as="figure" w="40" mb="8">
+            <Image src={IMAGE_CONFETTI} />
+          </Center>
+          <Steps.Title
+            color="gray.secondary"
+            fontSize="xl"
+            fontWeight="bold"
+            lineHeight="2rem"
+            mb="2"
+          >
+            マップが公開されました！🗾
+          </Steps.Title>
+          <Steps.Description color="gray.tertiary" mb="8" textAlign="center">
+            これからたくさんの記録を
+            <br />
+            塗り重ねていきましょう！🎨
+          </Steps.Description>
+          <Button asChild size="xl" w="fit" fontWeight="bold" rounded="full">
+            <Link to="/maps/map4?from=home">公開されたマップを見る</Link>
+          </Button>
+        </Steps.CompletedContent>
       </Steps.Root>
     </Layout>
   );
 }
-
-// FIXME: Finally
-// - Post preview
