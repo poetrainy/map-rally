@@ -45,8 +45,8 @@ const VISIBILITY_LIST_ITEMS = [
 ];
 
 export const MapEditable: FC<Props> = ({ data, onChange }) => {
-  const [name, setName] = useState(data?.name);
-  const [description, setDescription] = useState(data?.description);
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
   const [region, _setRegion] = useState<Region | "all">(data?.region ?? "all");
   const [dialogTags, setDialogTags] = useState<string[]>([]);
   const [tags, setTags] = useState<string[]>(data?.tags ?? []);
@@ -67,7 +67,7 @@ export const MapEditable: FC<Props> = ({ data, onChange }) => {
     <Box flex="1">
       <Input
         name="name"
-        value={name}
+        value={!!name.length ? name : data?.name}
         variant="flushed"
         placeholder="名前を入力"
         color="gray.fg"
@@ -84,7 +84,7 @@ export const MapEditable: FC<Props> = ({ data, onChange }) => {
       />
       <Input
         name="description"
-        value={description}
+        value={!!description.length ? description : data?.description}
         variant="flushed"
         placeholder="説明を入力"
         size="xs"

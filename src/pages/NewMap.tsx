@@ -17,9 +17,8 @@ import { MapEditable } from "@/components/MapEditable";
 export function NewMapPage() {
   const [name, setName] = useState("");
   const [region, setRegion] = useState<Region | "all" | null>("all");
-  const [data, setData] = useState<MapEdit>(); // FIXME: State
 
-  const updateData = (getData: MapEdit) => setData(getData);
+  const updateData = (getData: MapEdit) => setName(getData.name);
 
   const stepperItems: {
     title: string;
@@ -55,7 +54,6 @@ export function NewMapPage() {
     {
       title: "マップの地域をえらぶ",
       content: (
-        // FIXME: State
         <Center flexDir="column" alignItems="center" gap="2" flex="1">
           <Center
             w="full"
