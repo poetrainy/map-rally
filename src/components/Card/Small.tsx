@@ -1,9 +1,9 @@
 import type { FC } from "react";
+import { Link, useLocation } from "react-router";
 import { Card, Center, LinkOverlay, Text } from "@chakra-ui/react";
 import type { Map } from "@/types/map";
 import { createLevelMap } from "@/libraries/map";
 import { REGION_IMAGE_MAP } from "@/components/MapInformationBase";
-import { Link } from "react-router";
 import type { CardProps } from "@/components/Card/Large";
 
 type Props = CardProps & {
@@ -11,12 +11,17 @@ type Props = CardProps & {
 };
 
 export const CardSmall: FC<Props> = ({ map, from = "search" }) => {
+  const { search } = useLocation();
   const RegionComponent = REGION_IMAGE_MAP[map.region];
 
   return (
     <Card.Root bg="transparent" border="none">
       <LinkOverlay asChild>
-        <Link to={`/maps/${map.id}?from=${from}`} />
+        {!!search.length ? (
+          <Link to={{ pathname: `/maps/${map.id}`, search }} />
+        ) : (
+          <Link to={`/maps/${map.id}?from=${from}`} />
+        )}
       </LinkOverlay>
       <Card.Body
         display="flex"

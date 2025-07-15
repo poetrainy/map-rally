@@ -22,7 +22,10 @@ export function HomePage() {
         >
           <Link to="/maps/new">新しいマップをつくる</Link>
         </Button>
-        <Link to="/setting">
+        <Link
+          to={`/users/${MOCK_USER_SIGN_INNED.id}?from=home`}
+          aria-label="ユーザープロフィール"
+        >
           <UserIcon user={MOCK_USER_SIGN_INNED} />
         </Link>
       </Flex>
@@ -51,7 +54,7 @@ export function HomePage() {
           ))}
         </Flex>
       </Flex>
-      <Grid templateColumns="repeat(2, 1fr)" gap="2">
+      <Grid templateColumns="repeat(2, 1fr)" gap="1rem 0.5rem">
         {MOCK_MAPS_USER_SIGN_INNED.filter(({ isPin }) => !isPin).map((map) => (
           <GridItem key={map.id}>
             <CardSmall map={map} from="home" />

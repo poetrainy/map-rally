@@ -244,6 +244,9 @@ export const MOCK_MAPS_USER_SIGN_INNED: Map[] = MOCK_MAPS.filter(
 
 export const getMap = (id: string) => MOCK_MAPS.find((map) => id === map.id);
 
+export const getMaps = (userId: string) =>
+  MOCK_MAPS.filter((map) => userId === map.userId);
+
 export const getUser = (id: string) =>
   MOCK_USERS.find((user) => id === user.id);
 

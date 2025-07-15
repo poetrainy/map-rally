@@ -5,6 +5,7 @@ import { PostPage } from "@/pages/Post";
 import { Setting } from "@/pages/Setting";
 import { NewMapPage } from "@/pages/NewMap";
 import { MapPage } from "@/pages/Map";
+import { UserPage } from "@/pages/User";
 
 export const ReactRouter = () => {
   return (
@@ -17,7 +18,7 @@ export const ReactRouter = () => {
         </Route>
         <Route path="/posts/:id" element={<PostPage />} />
         <Route path="/search" element={<SearchPage />} />
-        <Route path="/users/:id" element={<></>} />
+        <Route path="/users/:id" element={<UserPage />} />
         <Route path="/setting" element={<Setting />} />
       </Routes>
     </BrowserRouter>
