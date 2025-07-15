@@ -23,7 +23,7 @@ export function MapPage() {
 
   return (
     <Layout>
-      <Flex flex="none" flexDir="column" gap="8">
+      <Flex flex="none" flexDir="column" gap="7">
         <MapInformationBase map={map} />
         <ThumbnailGrid posts={posts}>
           {user.id === MOCK_USER_SIGN_INNED.id && (

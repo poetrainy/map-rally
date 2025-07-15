@@ -74,7 +74,7 @@ export const MapInformationBase: FC<MapInformationBaseProps> = ({
 
   return (
     <Box>
-      <VStack alignItems="stretch" gap="1" mb="2" p="0">
+      <VStack alignItems="stretch" gap="1" mb="3" p="0">
         {showCardData.user && !!user && <UserBanner user={user} size="sm" />}
         <Flex justifyContent="space-between" alignItems="center" gap="4">
           <VStack p="0" gap="0" alignItems="stretch">
@@ -167,7 +167,7 @@ export const MapInformationBase: FC<MapInformationBaseProps> = ({
         justifyContent="flex-end"
         flexWrap="wrap"
         gap="0 0.5rem"
-        mt="3"
+        mt="2"
         p="0"
       >
         {map.tags.map((tag) => (
