@@ -1,54 +1,31 @@
-# React + TypeScript + Vite
+# Map-rally
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 概要
 
-Currently, two official plugins are available:
+旅行の記録、コンサートやラーメン巡りの軌跡、いつもの街での発見まで。好きなテーマで「マップ」を作り、訪れた場所の写真をポストすることで、自分だけの地図に色を塗り重ねることができる SNS です。
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## サービスについて
 
-## Expanding the ESLint configuration
+### 1. 「マップ」をつくろう
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+ユーザーは、日本の 7 つの地方いずれかをベースにした「マップ」を作成します。好きな名前をつけたり、発見してもらいやすいタグをつけたりして、マップらしさをアピールできます。
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+### 2. 写真を「ポスト」しよう
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+ユーザーは、それぞれのマップに写真を「ポスト」できます。ポストには、マップに該当する都道府県を紐づけることで、マップが少しずつ色づいていきます。あなただけの記録を塗り重ねていきましょう。
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### 3. マップをさがしてみよう
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+ユーザーは、つけられたタグや、地方、ポストの進捗率などから、マップを検索することができます。
+
+## 想定している機能
+
+- SNS 連携
+  - マップおよびポストを作成した際に SNS で共有できる
+  - マップを画像で出力し、進捗状況を SNS で記録・共有できる
+- マップ配布
+  - マップのプリセットを作成・配布でき、読み込んだユーザーがそれぞれにマップを作成できる
+    - 企業・行政などがユーザーに配布し、クエスト的な遊び方をしてもらうことができる
+    - QR コード等で読み込むことができる
+- マップアナリティクス
+  - マップの進行状況の記録をグラフで確認できる
