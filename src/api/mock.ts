@@ -23,6 +23,7 @@ export const MOCK_MAPS: Map[] = [
   {
     id: "map1",
     name: "現場で訪れた会場記録 近畿編",
+    description: "コンサート / 観劇 / フェス 🌟🎶",
     region: "kinki",
     tags: ["現場", "オタク"],
     userId: "user1",
@@ -44,6 +45,7 @@ export const MOCK_MAPS: Map[] = [
   {
     id: "map2",
     name: "四国の柑橘を食ってみる旅",
+    description: "ただただ柑橘を食う",
     region: "shikoku",
     tags: ["柑橘"],
     userId: "user2",

@@ -74,19 +74,26 @@ export const MapInformationBase: FC<MapInformationBaseProps> = ({
 
   return (
     <Box>
-      <Flex flexDir="column" alignItems="stretch" mb="2" p="0">
+      <VStack alignItems="stretch" gap="1" mb="2" p="0">
         {showCardData.user && !!user && <UserBanner user={user} size="sm" />}
         <Flex justifyContent="space-between" alignItems="center" gap="4">
-          <Heading
-            as="h2"
-            color="gray.fg"
-            lineHeight="2rem"
-            _icon={{ display: "inline", color: "gray.secondary", pl: 1 }}
-          >
-            <Text as="span">{map.name}</Text>
-            {map.visibility === "private" && <LuLock />}
-            {map.visibility === "unlisted" && <LuLink />}
-          </Heading>
+          <VStack p="0" gap="0" alignItems="stretch">
+            <Heading
+              as="h2"
+              color="gray.fg"
+              lineHeight="2rem"
+              _icon={{ display: "inline", color: "gray.secondary", pl: 1 }}
+            >
+              <Text as="span">{map.name}</Text>
+              {map.visibility === "private" && <LuLock />}
+              {map.visibility === "unlisted" && <LuLink />}
+            </Heading>
+            {map.description && (
+              <Text color="gray.secondary" fontSize="xs">
+                {map.description}
+              </Text>
+            )}
+          </VStack>
           {showCardData.options && (
             <Flex flex="none" gap="1">
               <IconButton
@@ -115,7 +122,7 @@ export const MapInformationBase: FC<MapInformationBaseProps> = ({
             </Flex>
           )}
         </Flex>
-      </Flex>
+      </VStack>
       <Flex alignItems="center" w="full" p="0">
         <Center w="full" h="64">
           <RegionComponent levelMap={createLevelMap(map)} />

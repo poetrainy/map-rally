@@ -15,7 +15,9 @@ export function UserPage() {
   const [open, setOpen] = useState(false);
   const { id } = useParams();
   const user = getUser(id ?? "");
-  const maps = getMaps(id ?? "");
+  const maps = getMaps(id ?? "").filter(
+    ({ visibility }) => visibility === "public"
+  );
 
   if (!(user && maps)) {
     return (
