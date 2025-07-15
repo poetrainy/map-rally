@@ -155,7 +155,7 @@ export const MapEditable: FC<Props> = ({ data, onChange }) => {
                   <TagSearch onChange={(tags) => setDialogTags(tags)} />
                 </Dialog.Body>
                 <Dialog.Footer p="0">
-                  <Dialog.CloseTrigger pos="relative" inset="auto">
+                  <Dialog.CloseTrigger asChild pos="relative" inset="auto">
                     <Button colorPalette="teal" h="10" px="5">
                       保存
                     </Button>

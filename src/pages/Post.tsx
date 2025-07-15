@@ -100,7 +100,7 @@ export function PostPage() {
       </Flex>
       <UserBanner user={user} />
       <Separator />
-      {otherPosts.length > 0 && (
+      {!!otherPosts.length && (
         <Flex flexDir="column" gap="4">
           <Text color="gray.secondary" fontSize="xs" fontWeight="bold">
             このマップのポストをもっと見る

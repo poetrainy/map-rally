@@ -144,7 +144,7 @@ export function NewMapPage() {
                   />
                   <Steps.NextTrigger asChild>
                     <Button flex="1" size="xl" fontWeight="bold" rounded="full">
-                      公開
+                      作る！
                     </Button>
                   </Steps.NextTrigger>
                 </ButtonGroup>
@@ -169,15 +169,15 @@ export function NewMapPage() {
             lineHeight="2rem"
             mb="2"
           >
-            マップが公開されました！🗾
+            マップが作成されました！🗾
           </Steps.Title>
-          <Steps.Description color="gray.tertiary" mb="8" textAlign="center">
+          <Steps.Description color="gray.tertiary" mb="6" textAlign="center">
             これからたくさんの記録を
             <br />
             塗り重ねていきましょう！🎨
           </Steps.Description>
           <Button asChild size="xl" w="fit" fontWeight="bold" rounded="full">
-            <Link to="/maps/map4?from=home">公開されたマップを見る</Link>
+            <Link to="/maps/map4?from=home">作成されたマップを確認する</Link>
           </Button>
         </Steps.CompletedContent>
       </Steps.Root>

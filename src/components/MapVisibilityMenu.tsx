@@ -44,12 +44,13 @@ export const MapVisibilityMenu: FC<Props> = ({
       radioItems={VISIBILITY_LIST_ITEMS}
       trigger={
         <Button
-          variant="ghost"
+          variant="outline"
           colorPalette="gray"
           gap="1"
-          w="24"
+          w="28"
           h="fit"
           color="gray.fg"
+          bg="gray.contrast"
           py="3"
           px="0"
           rounded="lg"

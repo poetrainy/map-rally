@@ -88,7 +88,7 @@ export const MapInformationBase: FC<MapInformationBaseProps> = ({
             {map.visibility === "unlisted" && <LuLink />}
           </Heading>
           {showCardData.options && (
-            <Flex gap="1">
+            <Flex flex="none" gap="1">
               <IconButton
                 aria-label={
                   MOCK_USER_SIGN_INNED.likedMapIds.find((id) => id === map.id)
