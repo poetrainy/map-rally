@@ -3,6 +3,6 @@ export type User = {
   email: string;
   name: string;
   icon?: string;
-  blockedUsers: never[];
-  likedMapIds: never[];
+  blockedUsers: string[];
+  likedMapIds: string[];
 };
