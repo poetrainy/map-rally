@@ -169,7 +169,7 @@ export function NewMapPage() {
             lineHeight="2rem"
             mb="2"
           >
-            マップが作成されました！🗾
+            マップを作成しました！🗾
           </Steps.Title>
           <Steps.Description color="gray.tertiary" mb="6" textAlign="center">
             これからたくさんの記録を
@@ -177,7 +177,7 @@ export function NewMapPage() {
             塗り重ねていきましょう！🎨
           </Steps.Description>
           <Button asChild size="xl" w="fit" fontWeight="bold" rounded="full">
-            <Link to="/maps/map4?from=home">作成されたマップを確認する</Link>
+            <Link to="/maps/map4?from=home">作成したマップを確認する</Link>
           </Button>
         </Steps.CompletedContent>
       </Steps.Root>

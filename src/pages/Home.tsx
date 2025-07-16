@@ -17,6 +17,7 @@ export function HomePage() {
           size="xl"
           w="full"
           fontSize="md"
+          fontWeight="bold"
           rounded="full"
           flexShrink="1"
         >
