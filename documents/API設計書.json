@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "Map-rally API",
+    "title": "Petaree API",
     "description": "",
     "version": "1.0.0"
   },

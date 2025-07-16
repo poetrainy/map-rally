@@ -1,4 +1,4 @@
-# Map-rally
+# Petaree
 
 ## 概要
 
@@ -41,4 +41,4 @@
 ## 設計書
 
 - [基本設計書](./documents/基本設計書.md)
-- [API設計書](./documents/API設計書.json)
+- [API 設計書](./documents/API設計書.json)
