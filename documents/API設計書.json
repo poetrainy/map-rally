@@ -1,0 +1,427 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Map-rally API",
+    "description": "",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://example.com/api/v1"
+    }
+  ],
+  "tags": [
+    {
+      "name": "User",
+      "description": "ユーザーに関する操作"
+    },
+    {
+      "name": "Map",
+      "description": "マップに関する操作"
+    },
+    {
+      "name": "Post",
+      "description": "ポストに関する操作"
+    }
+  ],
+  "paths": {
+    "/users/{userId}": {
+      "get": {
+        "summary": "ユーザーを取得",
+        "tags": ["User"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "userId",
+            "required": true,
+            "description": "ユーザーID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "取得成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "ユーザーが見つからない"
+          }
+        }
+      }
+    },
+    "/maps": {
+      "get": {
+        "summary": "マップ一覧を取得",
+        "tags": ["Map"],
+        "responses": {
+          "200": {
+            "description": "取得成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Map"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/maps/{mapId}": {
+      "get": {
+        "summary": "マップを取得",
+        "tags": ["Map"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "mapId",
+            "required": true,
+            "description": "マップID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "取得成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Map"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "マップが見つからない"
+          }
+        }
+      },
+      "patch": {
+        "summary": "マップを更新",
+        "tags": ["Map"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "mapId",
+            "required": true,
+            "description": "マップID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "更新するマップ情報（部分）",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MapEdit"
+              },
+              "example": {
+                "name": "新しい地図名",
+                "visibility": "private"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "更新後のマップデータ",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Map" }
+              }
+            }
+          },
+          "404": {
+            "description": "マップが見つからない"
+          }
+        }
+      },
+      "delete": {
+        "summary": "マップを削除",
+        "tags": ["Map"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "mapId",
+            "required": true,
+            "description": "マップID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "正常に削除"
+          },
+          "404": {
+            "description": "マップが見つからない"
+          }
+        }
+      }
+    },
+    "/posts/{postId}": {
+      "get": {
+        "summary": "ポストを取得",
+        "tags": ["Post"],
+        "parameters": [
+          {
+            "name": "postId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ポストデータ",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Post" }
+              }
+            }
+          },
+          "404": {
+            "description": "ポストが見つからない"
+          }
+        }
+      },
+      "patch": {
+        "summary": "ポストを部分更新",
+        "tags": ["Post"],
+        "parameters": [
+          {
+            "name": "postId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "description": "更新するポストデータ（部分）",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "publishedAt": { "type": "string", "format": "date-time" },
+                  "prefecture": { "type": "string" },
+                  "images": { "type": "array", "items": { "type": "string" } },
+                  "title": { "type": "string" },
+                  "place": { "type": "string" },
+                  "text": { "type": "string" },
+                  "mapId": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "更新後のポストデータ",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Post" }
+              }
+            }
+          },
+          "404": {
+            "description": "ポストが見つからない"
+          }
+        }
+      },
+      "delete": {
+        "summary": "ポストを削除",
+        "tags": ["Post"],
+        "parameters": [
+          {
+            "name": "postId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "正常に削除"
+          },
+          "404": {
+            "description": "ポストが見つからない"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "name": {
+            "type": "string"
+          },
+          "icon": {
+            "type": "string"
+          },
+          "blockedUsers": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "likedMapIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": ["id", "email", "name", "blockedUsers", "likedMapIds"]
+      },
+      "Map": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "userId": {
+            "type": "string"
+          },
+          "isPin": {
+            "type": "boolean"
+          },
+          "posts": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "region": {
+            "type": "string",
+            "enum": [
+              "hokkaido-tohoku",
+              "kanto",
+              "chubu",
+              "kinki",
+              "chugoku",
+              "shikoku",
+              "kyushu-okinawa"
+            ]
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "visibility": {
+            "type": "string",
+            "enum": ["public", "unlisted", "private"]
+          }
+        },
+        "required": [
+          "id",
+          "userId",
+          "isPin",
+          "posts",
+          "name",
+          "region",
+          "tags",
+          "visibility"
+        ]
+      },
+      "MapEdit": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "description": { "type": "string" },
+          "region": {
+            "type": "string",
+            "enum": [
+              "hokkaido-tohoku",
+              "kanto",
+              "chubu",
+              "kinki",
+              "chugoku",
+              "shikoku",
+              "kyushu-okinawa"
+            ]
+          },
+          "tags": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "visibility": {
+            "type": "string",
+            "enum": ["public", "unlisted", "private"]
+          }
+        }
+      },
+      "Post": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "publishedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "prefecture": {
+            "type": "string"
+          },
+          "images": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "title": {
+            "type": "string"
+          },
+          "place": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          },
+          "mapId": {
+            "type": "string"
+          }
+        },
+        "required": ["id", "publishedAt", "prefecture", "images", "mapId"]
+      }
+    }
+  }
+}
