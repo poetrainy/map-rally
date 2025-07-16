@@ -41,4 +41,4 @@
 ## 設計書
 
 - [基本設計書](./documents/基本設計書.md)
-- [API設計書](./documents/API設計書.yaml)
+- [API設計書](./documents/API設計書.json)
