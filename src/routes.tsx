@@ -9,7 +9,7 @@ import { UserPage } from "@/pages/User";
 
 export const ReactRouter = () => {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/petaree">
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/maps">
